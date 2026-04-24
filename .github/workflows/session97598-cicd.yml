@@ -63,6 +63,18 @@ jobs:
       - name: Deploy Bicep template to Azure Web App
         run: az deployment group create --resource-group session97598 --template-file iac/deploy.bicep
 
+  deploy-application:
+    runs-on: ubuntu-latest
+    needs: 
+      - build-and-test
+      - deploy-environment
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: session97598.zip
+          path: .
+
       - name: Deploy artifact to Azure Web App
         run: az webapp deploy --resource-group session97598 --src-path session97598.zip --name session97598
 
