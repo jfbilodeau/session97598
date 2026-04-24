@@ -49,6 +49,9 @@ jobs:
           path: session97598.zip
           if-no-files-found: error
 
+  deploy-environment:
+    runs-on: ubuntu-latest
+    steps:          
       - name: Login to Azure
         uses: azure/login@v3
         with:
