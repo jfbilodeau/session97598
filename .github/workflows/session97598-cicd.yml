@@ -49,7 +49,10 @@ jobs:
           path: session97598.zip
           if-no-files-found: error
 
-    
+      - name: Login to Azure
+        uses: azure/login@v3
+        with:
+          creds: ${{ secrets.AZURE_CREDS }}
 
   # deploy-to-dev:
   #   runs-on: ubuntu-latest
