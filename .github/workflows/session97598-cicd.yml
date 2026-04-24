@@ -55,7 +55,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDS }}
 
       - name: Deploy artifact to Azure Web App
-        run: az deployment create --resource-group session97598 --template-file iac/deploy.bicep
+        run: az deployment group create --resource-group session97598 --template-file iac/deploy.bicep
 
   # deploy-to-dev:
   #   runs-on: ubuntu-latest
