@@ -54,6 +54,8 @@ jobs:
     steps:          
       - name: Checkout repository
         uses: actions/checkout@v4
+        with: 
+          filter: iac/*
 
       - name: Login to Azure
         uses: azure/login@v3
