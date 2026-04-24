@@ -1,4 +1,4 @@
-name: Session 97598 CI/CD Workflow`
+name: Session 97598 CI/CD Workflow
 
 on:
   pull_request:
@@ -33,19 +33,36 @@ jobs:
 
       - name: Test
         run: dotnet test 97598.sln --configuration Release --no-build --verbosity normal
+
+      - name: Publish production build
+        run: dotnet publish Session97598.csproj --configuration Release --no-build --output ./artifacts/publish
+
+      - name: Package production build
+        run: |
+          cd artifacts/publish
+          zip -r ../../session97598.zip .
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: session97598.zip
+          path: session97598.zip
+          if-no-files-found: error
+
+    
+
+  # deploy-to-dev:
+  #   runs-on: ubuntu-latest
+  #   needs: build-and-test
+  #   environment: Dev
+  #   steps:
+  #     - name: Deploy to Development
+  #       run: echo "Deploying to WebApp ${{ vars.WEBAPP_NAME }} using ${{ secrets.CREDS }}..."
       
-  deploy-to-dev:
-    runs-on: ubuntu-latest
-    needs: build-and-test
-    environment: Dev
-    steps:
-      - name: Deploy to Development
-        run: echo "Deploying to WebApp ${{ vars.WEBAPP_NAME }} using ${{ secrets.CREDS }}..."
-      
-  deploy-to-prod:
-    runs-on: ubuntu-latest
-    needs: deploy-to-dev
-    environment: Prod
-    steps:
-      - name: Deploy to Production
-        run: echo "Deploying to production environment..."
+  # deploy-to-prod:
+  #   runs-on: ubuntu-latest
+  #   needs: deploy-to-dev
+  #   environment: Prod
+  #   steps:
+  #     - name: Deploy to Production
+  #       run: echo "Deploying to production environment..."
