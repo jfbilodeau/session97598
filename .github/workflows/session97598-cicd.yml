@@ -40,7 +40,7 @@ jobs:
     environment: Dev
     steps:
       - name: Deploy to Development
-        run: echo "Deploying to development environment..."
+        run: echo "Deploying to WebApp ${{ vars.WEBAPP_NAME }} using ${{ secrets.CREDS }}..."
       
   deploy-to-prod:
     runs-on: ubuntu-latest
