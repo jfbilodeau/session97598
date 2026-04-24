@@ -22,7 +22,7 @@ jobs:
           dotnet-version: 10.0.x
 
       - name: Restore dependencies
-        run: dotnet restore 97598x.sln
+        run: dotnet restore 97598.sln
 
       - name: Build
         run: dotnet build 97598.sln --configuration Release --no-restore
